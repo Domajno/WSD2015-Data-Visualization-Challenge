@@ -1,5 +1,5 @@
 "use strict";
-var margin = {top: 30, right: 10, bottom: 10, left: 10},
+var margin = {top: 50, right: 10, bottom: 10, left: 10},
     width = 960 - margin.left - margin.right,
     height = 500 - margin.top - margin.bottom;
 
@@ -87,7 +87,13 @@ var drawChart = function(data, dimensions) {
 	      .data(data)
 	    .enter().append("path")
 	      .attr("d", path)
-	      .classed('displayed', true);
+	      .classed('displayed', true)
+	      .on('mouseover', function(d){
+	      	d3.select('#text').text(d['']);
+	      })
+	      .on('mouseout', function(){
+	      	d3.select('#text').text('');
+	      });
 
 	  // Add a group element for each dimension.
 	  var g = svg.selectAll(".dimension")
@@ -102,8 +108,16 @@ var drawChart = function(data, dimensions) {
 	      .each(function(d) { d3.select(this).call(axis.scale(ranges[d]).ticks(3)); })
 	    .append("text")
 	      .style("text-anchor", "middle")
-	      .attr("y", -9)
+	      .attr("y", function(d, i){ return i%2==0 ? -12 : -32;})
 	      .text(function(d) { return d; });
+
+	  // Remove tick lines
+	  d3.selectAll('.tick line').remove();
+	  d3.selectAll('.axis path.domain')
+	  	.attr('d', function(d){
+	  		//M-6,0H0V440H-6
+	  		return d3.select(this).attr('d').replace(/^M-6/, 'M-3,0H3').replace(/H-6$/, 'H-3H3');
+	  	});
 
 	  // Add and store a brush for each axis.
 	  g.append("g")
