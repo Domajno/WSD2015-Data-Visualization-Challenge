@@ -1,0 +1,52 @@
+body {
+	background-color: #141414;
+	color: #efefef;
+}
+
+#top {
+	height: 35vh;
+}
+#chart {
+	height: 60vh;
+}
+
+svg {
+  font: 10px sans-serif;
+}
+
+.foreground path {
+  fill: none;
+  stroke: steelblue;
+  opacity: 0;
+  stroke-width: 1px;
+  transition: opacity 0.5s ease;
+}
+
+.foreground path.displayed {
+  opacity: 0.2;
+}
+
+.foreground path:hover {
+  stroke: orange;
+  stroke-width: 2px;
+  opacity: 0.8;
+}
+
+.brush .extent {
+  fill-opacity: .3;
+  stroke: #3B3B3B;
+}
+
+.axis line,
+.axis path {
+  fill: none;
+  stroke: #3B3B3B;
+  stroke-width: 1px;
+}
+
+.axis text {
+  fill: #B6B6B6;
+}
+.axis .tick text {
+  fill: #727272;
+}
