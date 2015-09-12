@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>title</title>
+    <title>Visualizing Millennium Development Goals Indicators 2013</title>
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
     <script src="eb.js" charset="utf-8"></script>
@@ -10,12 +10,16 @@
   <body>
   	<div id="top">
      <h1>Visualizing Millennium Development Goals Indicators for 2013</h1>
+     <div id="screen-too-small"></div>
      <div id="links">
-       <h2>Add/remove Indicators</h2>
-       <h2>About</h2>
+       <h2 class="link" id="add-btn">Add/remove Indicators</h2>
+       <h2 class="link" id="about-btn">About</h2>
      </div>
     </div>
-  	<div id="chart"></div>
+  	<div id="chart">
+     <div id="about"></div> 
+     <div id="add"></div> 
+    </div>
     <div id="text-wrapper"><span id="text"></span></div>
   	<script src="main.js" charset="utf-8"></script>
   </body>

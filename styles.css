@@ -20,6 +20,7 @@ body {
 }
 #chart {
 	height: 70vh;
+  position: relative;
 }
 #links {
   position: absolute;
@@ -30,6 +31,42 @@ h2 {
   display: inline;
   margin-left: 3em;
 }
+
+.link {
+  opacity: 1;
+  transition: opacity 0.2s ease;
+}
+.link:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+#screen-too-small {
+  display: none;
+}
+
+#about {
+  position: absolute;
+  height: calc(87vh - 10vmin);
+  width: 100vw;
+  background-color: wheat;
+  display: none;
+}
+#about.active {
+  display: block;
+}
+
+#add {
+  position: absolute;
+  height: calc(87vh - 10vmin);
+  width: 100vw;
+  background-color: green;
+  display: none;
+}
+#add.active {
+  display: block;
+}
+
 
 svg {
   font: 10px sans-serif;
