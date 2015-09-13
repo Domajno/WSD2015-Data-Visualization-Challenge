@@ -8,7 +8,7 @@
   <link rel="stylesheet" type="text/css" href="styles.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
   <script src="eb.js" charset="utf-8"></script>
-  <meta name="description" content="WSD 2015 Data Visualization Challenge is interactive visualization of the Millennium Development Goals Indicators using parallel coordinates and edge bundling.">
+  <meta name="description" content="WSD 2015 Data Visualization Challenge is interactive visualization of Millennium Development Goals Indicators using parallel coordinates and edge bundling.">
   <meta name="keywords" content="Millennium Development Goals,visualization,parallel coordinates,edge bundling">
   <meta name="author" content="Dominik Cygalski">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,14 +27,16 @@
     <div id="loading">Loading</div>
     <div id="about">
       <div>
-        <p>This is a submission to the <a href="https://unite.un.org/ideas/content/wsd2015-data-visualization-challenge" target="_blank">WSD 2015 Data Visualization Challenge</a>. It is an interactive visualization of the Millennium Development Goals Indicators for the year 2013. You can add or remove indicators to the plot by clicking <i>Add/remove Indicators</i> button in the top right-hend side corner.</p>
+        <p>This is a submission to the <a href="https://unite.un.org/ideas/content/wsd2015-data-visualization-challenge" target="_blank">WSD 2015 Data Visualization Challenge</a>. It is an interactive visualization of the Millennium Development Goals Indicators for the year 2013.</p>
 
-        <p>On the challenge website several questions were seuugested that the visualization could help to answer. This project is insipred by the first question i.e. <i>What are the interlinkages, synergies and tradeoffs between different targets? For instance, does achieving certain targets increase or decrease the likelihood of achieving other targets?</i> The answer to this question could be potentially very complex as finding the causality from observational data is not a trivial task. What this project does is simply trying to highligh correlations between different MDG indicators.
+        <p>On the challenge website several questions were suggested that the visualization could help to answer. This project is insipred by the first question i.e. <i>What are the interlinkages, synergies and tradeoffs between different targets? For instance, does achieving certain targets increase or decrease the likelihood of achieving other targets?</i> The answer to this question could be potentially very complex as finding the causality from observational data is not an easy task. What this project does is simply trying to highlight correlations between different MDG indicators. It is interactive and different MDG indicators can added or removed from the plot by clicking <i>Add/remove Indicators</i> button in the top right-hend side corner.
         </p>
 
-        <p><a href="https://en.wikipedia.org/wiki/Parallel_coordinates" target="_blank">Parallel coordinates</a> visualization technique is used here. It is a common and well-known way to present multidimensional data. It is suitable for finding correllations and spotting outliers. Moreover, an edge bundling was used on top of the parallel coordinates plot. It is a technique which groups simillar edged together to reduce visual clutter and allow to visually extract the obvious patterns more easily and quickly.</p>
+        <p><a href="https://en.wikipedia.org/wiki/Parallel_coordinates" target="_blank">Parallel coordinates</a> visualization technique is used here. It is a common and well-known way to present multidimensional data. It is suitable for finding correlations and spotting outliers. Moreover, an edge bundling was used on top of the parallel coordinates plot. It is a technique which groups similar edged together to reduce visual clutter and allow to visually extract the obvious patterns more easily and quickly.</p>
 
         <p>Projects uses SVG graphics and was created with the help of <a href="http://d3js.org/" target="_blank">D3</a> library. <a href="http://bl.ocks.org/mbostock/1341021" target="_blank">D3 parallel coordinates</a> was used as a starting point and <a href="https://github.com/upphiminn/d3.ForceBundle" target="_blank">FDEB script</a> was used to perform force directed edge bundling.</p>
+
+        <p>Data used in this project come from official challenge website.</p>
 
         <p>See more <a href="http://cygalski.pl" target="_blank">cygalski.pl</a>
         </p>
