@@ -17,23 +17,29 @@
      </div>
     </div>
   	<div id="chart">
+      <div id="loading">Loading</div>
      <div id="about">
-       <p>Abstract: This is a submission to the WSD 2015 Data Visualization Challenge. It is an interactive visualization.</p>
-       <p>Problem and Motivation: I tried to address the first question that was presented in the contest decription i.e. <i>What are the interlinkages, synergies and tradeoffs between different targets? For instance, does achieving certain targets increase or decrease the likelihood of achieving other targets?</i> The answer to this question could be potentially very complex. What I do is simply try to highligh correlations between different MDG indicators.
+      <div>
+       <p>This is a submission to the <a href="https://unite.un.org/ideas/content/wsd2015-data-visualization-challenge" target="_blank">WSD 2015 Data Visualization Challenge</a>. It is an interactive visualization of the Millennium Development Goals Indicators for the year 2013. You can add or remove indicators to the plot by clicking <i>Add/remove Indicators</i> button in the top right-hend side corner.</p>
+
+       <p>On the challenge website several questions were seuugested that the visualization could help to answer. This project is insipred by the first question i.e. <i>What are the interlinkages, synergies and tradeoffs between different targets? For instance, does achieving certain targets increase or decrease the likelihood of achieving other targets?</i> The answer to this question could be potentially very complex as finding the causality from observational data is not a trivial task. What this project does is simply trying to highligh correlations between different MDG indicators.
        </p>
-       <p>Approaches: Parallel coordinates plot which is good for showing multidimensional data. </p>
-       <p>Tools Utilized: D3, D3 parallel coordinates by M Bostock, Force directed edge bundling by X</p>
-       <p>Results: Result is a dynamic visualization which allows users to play with the dataset and discover  .</p>
+
+       <p><a href="https://en.wikipedia.org/wiki/Parallel_coordinates" target="_blank">Parallel coordinates</a> visualization technique is used here. It is a common and well-known way to present multidimensional data. It is suitable for finding correllations and spotting outliers.</p>
+
+       <p>Projects uses SVG graphics and was created with the help of <a href="http://d3js.org/" target="_blank">D3</a> library. <a href="http://bl.ocks.org/mbostock/1341021" target="_blank">D3 parallel coordinates</a> was used as a starting point and <a href="https://github.com/upphiminn/d3.ForceBundle" target="_blank">FDEB script</a> was used to perform force directed edge bundling.</p>
+
        <p>See more <a href="http://cygalski.pl" target="_blank">cygalski.pl</a></p>
+       </div>
      </div> 
      <div id="add">
       <div style="margin: 5vmin;">
-        <p>Choose indicators which should appear on the plot</p>
+        <p>Choose the indicators which should appear on the plot:</p>
         <ul></ul>
        </div>
        <div id="update-btn">
-        <span>Go back</span>
-        <span>Update chart</span>
+        <span id="goback-btn">Go back</span>
+        <span id="update-chart-btn">Update chart</span>
        </div>
      </div> 
     </div>
