@@ -59,6 +59,7 @@ h1 {
     width: 100vw;
     display: none;
     background-color: #141414;
+    color: #B6B6B6;
 }
 #about.active {
     display: block;

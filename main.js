@@ -174,6 +174,93 @@ window.onload = function () {
                 .range([height, 0]);
         });
 
+    // Define function that will perform edge bundling
+    var bundleEdges = function (nodes, edges, index, callback) {
+        if (window.Worker) {
+            // Use web worker to perform edge bundling
+            var worker = new Worker("worker.js");
+            worker.postMessage({
+                nodes: nodes,
+                edges: edges
+            });
+            worker.onmessage = function (e) {
+                callback(e.data, index);
+            }
+        } else {
+            var fbundling = d3.ForceEdgeBundling()
+                .nodes(nodes)
+                .edges(edges)
+                .step_size(0.02)
+                .iterations(30);
+            var bundlingResults = fbundling();
+            callback(bundlingResults, index);
+        }
+    }
+
+    var prepareLines = function (data, dimensions, callback) {
+        // Compute bundled lines
+        var lines = [],
+            bundledLines = [],
+            bundlingResults,
+            nodes,
+            edges,
+            count = 0;
+
+        data.forEach(function (d) {
+            lines.push(dimensions.map(function (p) {
+                return [x(p), ranges[p](d[p])];
+            }));
+        });
+
+        lines.forEach(function () {
+            bundledLines.push(new Array(dimensions.length - 1));
+        });
+
+        lines[0].forEach(function (_, i) {
+
+            if ((i + 1) === lines[0].length) {
+                return;
+            }
+
+            nodes = {};
+            edges = [];
+
+            lines.forEach(function (line, j) {
+                nodes[j + '_1'] = {
+                    x: line[i][0],
+                    y: line[i][1]
+                };
+                nodes[j + '_2'] = {
+                    x: line[i + 1][0],
+                    y: line[i + 1][1]
+                };
+                edges.push({
+                    source: j + '_1',
+                    target: j + '_2'
+                });
+            });
+
+            // Perform edge bundling
+            bundleEdges(nodes, edges, i, function (bundlingResults, index) {
+                bundlingResults.forEach(function (line, i) {
+                    bundledLines[i][index] = line.map(function (point) {
+                        return [point.x, point.y];
+                    });
+                });
+                count += 1;
+                if (count === (dimensions.length - 1)) {
+                    bundledLines = bundledLines.map(function (line) {
+                        return line.reduce(function (a, b) {
+                            return a.concat(b);
+                        }, []);
+                    });
+                    callback(bundledLines);
+                }
+            });
+
+        });
+    }
+
     // Define function that will draw the chart given data and dimensions (i.e. list of MGD indicators)
     var drawChart = function (data, dimensions) {
 
@@ -205,85 +292,34 @@ window.onload = function () {
         // Extract the list of dimensions and create a scale for each.
         x.domain(dimensions);
 
-        // Compute bundled lines
-        var lines = [],
-            bundledLines = [],
-            nodes, edges, fbundling, bundlingResults;
-
-        data.forEach(function (d) {
-            lines.push(dimensions.map(function (p) {
-                return [x(p), ranges[p](d[p])];
-            }));
-        });
-
-        lines.forEach(function () {
-            bundledLines.push([]);
-        });
-
-        lines[0].forEach(function (_, i) {
-
-            if ((i + 1) === lines[0].length) {
-                return;
-            }
-
-            nodes = {};
-            edges = [];
-
-            lines.forEach(function (line, j) {
-                nodes[j + '_1'] = {
-                    x: line[i][0],
-                    y: line[i][1]
-                };
-                nodes[j + '_2'] = {
-                    x: line[i + 1][0],
-                    y: line[i + 1][1]
-                };
-                edges.push({
-                    source: j + '_1',
-                    target: j + '_2'
+        prepareLines(data, dimensions, function (lines) {
+            // Add lines.
+            foreground = svg.append("g")
+                .attr("class", "foreground")
+                .selectAll("path")
+                .data(data)
+                .enter()
+                .append("path")
+                .attr("d", function (_, i) {
+                    return line(lines[i]);
+                })
+                .on('mouseover', function (d) {
+                    d3.select('#text')
+                        .text(d['']);
+                    this.parentNode.appendChild(this);
+                })
+                .on('mouseout', function () {
+                    d3.select('#text')
+                        .text('');
                 });
-            });
 
-            // Perform edge bundling
-            fbundling = d3.ForceEdgeBundling()
-                .nodes(nodes)
-                .edges(edges)
-                .step_size(0.02)
-                .iterations(30);
-            bundlingResults = fbundling();
-            bundlingResults.forEach(function (line, i) {
-                bundledLines[i] = bundledLines[i].concat(line.map(function (point) {
-                    return [point.x, point.y];
-                }));
+            // Entry animation effect
+            foreground.each(function () {
+                var oneLine = d3.select(this);
+                setTimeout(function () {
+                    oneLine.classed('displayed', true);
+                }, Math.random() * 2500);
             });
-        });
-
-        // Add lines.
-        foreground = svg.append("g")
-            .attr("class", "foreground")
-            .selectAll("path")
-            .data(data)
-            .enter()
-            .append("path")
-            .attr("d", function (_, i) {
-                return line(bundledLines[i]);
-            })
-            .on('mouseover', function (d) {
-                d3.select('#text')
-                    .text(d['']);
-                this.parentNode.appendChild(this);
-            })
-            .on('mouseout', function () {
-                d3.select('#text')
-                    .text('');
-            });
-
-        // Entry animation effect
-        foreground.each(function () {
-            var oneLine = d3.select(this);
-            setTimeout(function () {
-                oneLine.classed('displayed', true);
-            }, Math.random() * 2500);
         });
 
         // Add a group element for each dimension.
