@@ -194,10 +194,11 @@ svg {
     opacity: 0;
     stroke-width: 1px;
     transition: opacity 0.5s ease;
-    pointer-events: stroke;
+    pointer-events: none;
 }
 .foreground path.displayed {
     opacity: 0.2;
+    pointer-events: stroke;
 }
 .foreground path:hover {
     stroke: orange;
