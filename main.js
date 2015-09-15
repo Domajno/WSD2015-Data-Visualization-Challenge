@@ -197,6 +197,8 @@ window.onload = function () {
         }
     }
 
+    // Perform edge bundling on all sections of the parallel coordinates a
+    // and organize results in meaningfull way
     var prepareLines = function (data, dimensions, callback) {
         // Compute bundled lines
         var lines = [],
